@@ -10,7 +10,7 @@ pipeline {
         {
             steps
             {
-                sh "yum install apache -y"
+                sh "yum install httpd -y"
             }
         }
         stage ('server start')
