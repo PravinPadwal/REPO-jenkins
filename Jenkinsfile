@@ -1,32 +1,15 @@
 pipeline {
- agent {
-        label {
-            label "built-in"
-            customWorkspace "/mnt/ws-3"
+        agent {
+        label 'built-in'
+            
         }
-    }
-    stages {
-        stage('installing apache')
-        {
-            steps
-            {
-                sh "yum install httpd -y"
+        stages {
+            stage ('stage-1'){
+                steps {
+                        sh "chmod -R 777 index.html"
+                        sh "docker cp index.html a1b6cbbdf112:/usr/local/apache2/htdocs"
+                    
+                }
             }
         }
-        stage ('server start')
-        {
-            steps
-            {
-                sh "service httpd start"
-            }
-        }
-        stage ('deploying index.html')
-        {
-            steps
-            {
-                sh "cp -r /root/index.html /var/www/html/"
-                sh "chmod -R 777 /var/www/html"
-            }
-        }
-    }
 }
